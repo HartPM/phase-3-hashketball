@@ -126,4 +126,38 @@ def game_hash
   }
 end
 
-# Write code here
+def full_roster_arr 
+  game_hash[:home][:players] + game_hash[:away][:players]
+end
+
+def get_team_info(team)
+  team == game_hash[:home][:team_name] ? game_hash[:home] : game_hash[:away]
+end
+
+def player_stats(name)
+  full_roster_arr.find {|player| player[:player_name] == name}
+end
+
+def num_points_scored(name)
+  player_stats(name)[:points]
+end
+
+def shoe_size(name)
+  player_stats(name)[:shoe]
+end
+
+def team_colors(team_name)
+  get_team_info(team_name)[:colors]
+end
+
+def team_names
+  [game_hash[:home][:team_name], game_hash[:away][:team_name]]
+end
+
+def player_numbers(team_name)
+  get_team_info(team_name)[:players].map {|player| player[:number]}
+end
+
+def big_shoe_rebounds
+  full_roster_arr.sort_by {|player| player[:shoe]}.last[:rebounds]
+end
